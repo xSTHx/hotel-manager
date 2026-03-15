@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAGŁÓWEK -->
+    <header class="header">
+        <div class="header-logo">🏨 Hotel Manager</div>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </header>
+
+    <div class="layout">
+
+        <!-- NAWIGACJA BOCZNA -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-list">
+                <li>
+                    <a href="#" class="nav-link active" data-view="dashboard">
+                        <span class="nav-icon">📊</span> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-view="pokoje">
+                        <span class="nav-icon">🛏️</span> Pokoje
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-view="rezerwacje">
+                        <span class="nav-icon">📋</span> Rezerwacje
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-view="goscie">
+                        <span class="nav-icon">👥</span> Goście
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- GŁÓWNA TREŚĆ -->
+        <main class="main">
+
+            <!-- WIDOK: DASHBOARD -->
+            <section class="view active" id="view-dashboard">
+                <h1 class="page-title">Dashboard</h1>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Wszystkich pokoi</div>
+                    </div>
+                    <div class="stat-card stat-card--green">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Wolnych pokoi</div>
+                    </div>
+                    <div class="stat-card stat-card--red">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Zajętych pokoi</div>
+                    </div>
+                    <div class="stat-card stat-card--yellow">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">W sprzątaniu</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-row">
+                    <div class="card">
+                        <h2 class="card-title">Obłożenie hotelu</h2>
+                        <div class="occupancy-bar-wrapper">
+                            <div class="occupancy-bar">
+                                <div class="occupancy-fill" style="width: 33%"></div>
+                            </div>
+                            <span class="occupancy-label">33%</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title">Dzisiejsze przyjazdy</h2>
+                        <ul class="simple-list">
+                            <li>Jan Kowalski - pokój 101</li>
+                            <li>Anna Nowak - pokój 205</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title">Dzisiejsze wyjazdy</h2>
+                        <ul class="simple-list">
+                            <li>Piotr Wiśniewski - pokój 103</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WIDOK: POKOJE -->
+            <section class="view" id="view-pokoje">
+                <div class="page-header">
+                    <h1 class="page-title">Pokoje</h1>
+                </div>
+
+                <div class="filter-bar">
+                    <select class="filter-select">
+                        <option value="">Wszystkie typy</option>
+                        <option>Jednoosobowy</option>
+                        <option>Dwuosobowy</option>
+                        <option>Apartament</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">Wszystkie statusy</option>
+                        <option>Wolny</option>
+                        <option>Zajęty</option>
+                        <option>W sprzątaniu</option>
+                    </select>
+                </div>
+
+                <div class="rooms-grid">
+
+                    <div class="room-card">
+                        <div class="room-number">101</div>
+                        <div class="room-type">Jednoosobowy</div>
+                        <div class="room-price">150 zł / noc</div>
+                        <span class="badge badge--green">Wolny</span>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-number">102</div>
+                        <div class="room-type">Dwuosobowy</div>
+                        <div class="room-price">220 zł / noc</div>
+                        <span class="badge badge--red">Zajęty</span>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-number">103</div>
+                        <div class="room-type">Apartament</div>
+                        <div class="room-price">450 zł / noc</div>
+                        <span class="badge badge--yellow">W sprzątaniu</span>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-number">201</div>
+                        <div class="room-type">Jednoosobowy</div>
+                        <div class="room-price">150 zł / noc</div>
+                        <span class="badge badge--green">Wolny</span>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-number">202</div>
+                        <div class="room-type">Dwuosobowy</div>
+                        <div class="room-price">220 zł / noc</div>
+                        <span class="badge badge--red">Zajęty</span>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-number">203</div>
+                        <div class="room-type">Dwuosobowy</div>
+                        <div class="room-price">220 zł / noc</div>
+                        <span class="badge badge--green">Wolny</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- WIDOK: REZERWACJE -->
+            <section class="view" id="view-rezerwacje">
+                <div class="page-header">
+                    <h1 class="page-title">Rezerwacje</h1>
+                    <button class="btn btn--primary" id="btnNowaRezerwacja">+ Nowa rezerwacja</button>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Gość</th>
+                            <th>Pokój</th>
+                            <th>Przyjazd</th>
+                            <th>Wyjazd</th>
+                            <th>Status</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jan Kowalski</td>
+                            <td>101</td>
+                            <td>2026-03-15</td>
+                            <td>2026-03-18</td>
+                            <td><span class="badge badge--green">Potwierdzona</span></td>
+                            <td>
+                                <button class="btn btn--small">Edytuj</button>
+                                <button class="btn btn--small btn--danger">Anuluj</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Anna Nowak</td>
+                            <td>205</td>
+                            <td>2026-03-15</td>
+                            <td>2026-03-20</td>
+                            <td><span class="badge badge--green">Potwierdzona</span></td>
+                            <td>
+                                <button class="btn btn--small">Edytuj</button>
+                                <button class="btn btn--small btn--danger">Anuluj</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Piotr Wiśniewski</td>
+                            <td>103</td>
+                            <td>2026-03-10</td>
+                            <td>2026-03-15</td>
+                            <td><span class="badge badge--gray">Anulowana</span></td>
+                            <td>
+                                <button class="btn btn--small">Edytuj</button>
+                                <button class="btn btn--small btn--danger">Anuluj</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- FORMULARZ: NOWA REZERWACJA -->
+                <div class="modal-overlay hidden" id="modalRezerwacja">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2>Nowa rezerwacja</h2>
+                            <button class="modal-close" id="btnZamknijModal">✕</button>
+                        </div>
+                        <form class="form" id="formRezerwacja">
+                            <div class="form-group">
+                                <label for="gosc">Gość</label>
+                                <input type="text" id="gosc" placeholder="Imię i nazwisko" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pokoj">Numer pokoju</label>
+                                <select id="pokoj" required>
+                                    <option value="">Wybierz pokój</option>
+                                    <option>101 - Jednoosobowy</option>
+                                    <option>201 - Jednoosobowy</option>
+                                    <option>203 - Dwuosobowy</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="przyjazd">Data przyjazdu</label>
+                                <input type="date" id="przyjazd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="wyjazd">Data wyjazdu</label>
+                                <input type="date" id="wyjazd" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary">Zapisz</button>
+                                <button type="button" class="btn" id="btnAnulujForm">Anuluj</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WIDOK: GOŚCIE -->
+            <section class="view" id="view-goscie">
+                <div class="page-header">
+                    <h1 class="page-title">Goście</h1>
+                </div>
+
+                <div class="filter-bar">
+                    <input type="text" class="filter-input" placeholder="Szukaj gościa...">
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Telefon</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jan Kowalski</td>
+                            <td>+48 600 100 200</td>
+                            <td>jan.kowalski@email.com</td>
+                        </tr>
+                        <tr>
+                            <td>Anna Nowak</td>
+                            <td>+48 700 200 300</td>
+                            <td>anna.nowak@email.com</td>
+                        </tr>
+                        <tr>
+                            <td>Piotr Wiśniewski</td>
+                            <td>+48 500 300 400</td>
+                            <td>piotr.w@email.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
