@@ -51,19 +51,19 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">12</div>
+                        <div class="stat-number" id="stat-wszystkie">-</div>
                         <div class="stat-label">Wszystkich pokoi</div>
                     </div>
                     <div class="stat-card stat-card--green">
-                        <div class="stat-number">7</div>
+                        <div class="stat-number" id="stat-wolne">-</div>
                         <div class="stat-label">Wolnych pokoi</div>
                     </div>
                     <div class="stat-card stat-card--red">
-                        <div class="stat-number">4</div>
+                        <div class="stat-number" id="stat-zajete">-</div>
                         <div class="stat-label">Zajętych pokoi</div>
                     </div>
                     <div class="stat-card stat-card--yellow">
-                        <div class="stat-number">1</div>
+                        <div class="stat-number" id="stat-sprzatanie">-</div>
                         <div class="stat-label">W sprzątaniu</div>
                     </div>
                 </div>
@@ -73,25 +73,20 @@
                         <h2 class="card-title">Obłożenie hotelu</h2>
                         <div class="occupancy-bar-wrapper">
                             <div class="occupancy-bar">
-                                <div class="occupancy-fill" style="width: 33%"></div>
+                                <div class="occupancy-fill" id="occupancy-fill" style="width: 0%"></div>
                             </div>
-                            <span class="occupancy-label">33%</span>
+                            <span class="occupancy-label" id="occupancy-label">0%</span>
                         </div>
                     </div>
 
                     <div class="card">
                         <h2 class="card-title">Dzisiejsze przyjazdy</h2>
-                        <ul class="simple-list">
-                            <li>Jan Kowalski - pokój 101</li>
-                            <li>Anna Nowak - pokój 205</li>
-                        </ul>
+                        <ul class="simple-list" id="lista-przyjazdy"></ul>
                     </div>
 
                     <div class="card">
                         <h2 class="card-title">Dzisiejsze wyjazdy</h2>
-                        <ul class="simple-list">
-                            <li>Piotr Wiśniewski - pokój 103</li>
-                        </ul>
+                        <ul class="simple-list" id="lista-wyjazdy"></ul>
                     </div>
                 </div>
             </section>
@@ -117,51 +112,7 @@
                     </select>
                 </div>
 
-                <div class="rooms-grid">
-
-                    <div class="room-card">
-                        <div class="room-number">101</div>
-                        <div class="room-type">Jednoosobowy</div>
-                        <div class="room-price">150 zł / noc</div>
-                        <span class="badge badge--green">Wolny</span>
-                    </div>
-
-                    <div class="room-card">
-                        <div class="room-number">102</div>
-                        <div class="room-type">Dwuosobowy</div>
-                        <div class="room-price">220 zł / noc</div>
-                        <span class="badge badge--red">Zajęty</span>
-                    </div>
-
-                    <div class="room-card">
-                        <div class="room-number">103</div>
-                        <div class="room-type">Apartament</div>
-                        <div class="room-price">450 zł / noc</div>
-                        <span class="badge badge--yellow">W sprzątaniu</span>
-                    </div>
-
-                    <div class="room-card">
-                        <div class="room-number">201</div>
-                        <div class="room-type">Jednoosobowy</div>
-                        <div class="room-price">150 zł / noc</div>
-                        <span class="badge badge--green">Wolny</span>
-                    </div>
-
-                    <div class="room-card">
-                        <div class="room-number">202</div>
-                        <div class="room-type">Dwuosobowy</div>
-                        <div class="room-price">220 zł / noc</div>
-                        <span class="badge badge--red">Zajęty</span>
-                    </div>
-
-                    <div class="room-card">
-                        <div class="room-number">203</div>
-                        <div class="room-type">Dwuosobowy</div>
-                        <div class="room-price">220 zł / noc</div>
-                        <span class="badge badge--green">Wolny</span>
-                    </div>
-
-                </div>
+                <div class="rooms-grid" id="rooms-grid"></div>
             </section>
 
             <!-- WIDOK: REZERWACJE -->
@@ -182,41 +133,7 @@
                             <th>Akcje</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Jan Kowalski</td>
-                            <td>101</td>
-                            <td>2026-03-15</td>
-                            <td>2026-03-18</td>
-                            <td><span class="badge badge--green">Potwierdzona</span></td>
-                            <td>
-                                <button class="btn btn--small">Edytuj</button>
-                                <button class="btn btn--small btn--danger">Anuluj</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Anna Nowak</td>
-                            <td>205</td>
-                            <td>2026-03-15</td>
-                            <td>2026-03-20</td>
-                            <td><span class="badge badge--green">Potwierdzona</span></td>
-                            <td>
-                                <button class="btn btn--small">Edytuj</button>
-                                <button class="btn btn--small btn--danger">Anuluj</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Piotr Wiśniewski</td>
-                            <td>103</td>
-                            <td>2026-03-10</td>
-                            <td>2026-03-15</td>
-                            <td><span class="badge badge--gray">Anulowana</span></td>
-                            <td>
-                                <button class="btn btn--small">Edytuj</button>
-                                <button class="btn btn--small btn--danger">Anuluj</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tbody-rezerwacje"></tbody>
                 </table>
 
                 <!-- FORMULARZ: NOWA REZERWACJA -->
@@ -235,9 +152,6 @@
                                 <label for="pokoj">Numer pokoju</label>
                                 <select id="pokoj" required>
                                     <option value="">Wybierz pokój</option>
-                                    <option>101 - Jednoosobowy</option>
-                                    <option>201 - Jednoosobowy</option>
-                                    <option>203 - Dwuosobowy</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -275,29 +189,14 @@
                             <th>E-mail</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Jan Kowalski</td>
-                            <td>+48 600 100 200</td>
-                            <td>jan.kowalski@email.com</td>
-                        </tr>
-                        <tr>
-                            <td>Anna Nowak</td>
-                            <td>+48 700 200 300</td>
-                            <td>anna.nowak@email.com</td>
-                        </tr>
-                        <tr>
-                            <td>Piotr Wiśniewski</td>
-                            <td>+48 500 300 400</td>
-                            <td>piotr.w@email.com</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tbody-goscie"></tbody>
                 </table>
             </section>
 
         </main>
     </div>
 
+    <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
