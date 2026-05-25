@@ -10,7 +10,7 @@
 
     <!-- NAGŁÓWEK -->
     <header class="header">
-        <div class="header-logo">🏨 Hotel Manager</div>
+        <div class="header-logo">Hotel Manager</div>
         <button class="menu-toggle" id="menuToggle">☰</button>
     </header>
 
@@ -20,24 +20,16 @@
         <nav class="sidebar" id="sidebar">
             <ul class="nav-list">
                 <li>
-                    <a href="#" class="nav-link active" data-view="dashboard">
-                        <span class="nav-icon">📊</span> Dashboard
-                    </a>
+                    <a href="#" class="nav-link active" data-view="dashboard">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link" data-view="pokoje">
-                        <span class="nav-icon">🛏️</span> Pokoje
-                    </a>
+                    <a href="#" class="nav-link" data-view="pokoje">Pokoje</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link" data-view="rezerwacje">
-                        <span class="nav-icon">📋</span> Rezerwacje
-                    </a>
+                    <a href="#" class="nav-link" data-view="rezerwacje">Rezerwacje</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link" data-view="goscie">
-                        <span class="nav-icon">👥</span> Goście
-                    </a>
+                    <a href="#" class="nav-link" data-view="goscie">Goście</a>
                 </li>
             </ul>
         </nav>
@@ -95,16 +87,17 @@
             <section class="view" id="view-pokoje">
                 <div class="page-header">
                     <h1 class="page-title">Pokoje</h1>
+                    <button class="btn btn--primary" id="btnNowyPokoj">+ Nowy pokój</button>
                 </div>
 
                 <div class="filter-bar">
-                    <select class="filter-select">
+                    <select class="filter-select" id="filterRoomType">
                         <option value="">Wszystkie typy</option>
                         <option>Jednoosobowy</option>
                         <option>Dwuosobowy</option>
                         <option>Apartament</option>
                     </select>
-                    <select class="filter-select">
+                    <select class="filter-select" id="filterRoomStatus">
                         <option value="">Wszystkie statusy</option>
                         <option>Wolny</option>
                         <option>Zajęty</option>
@@ -113,6 +106,46 @@
                 </div>
 
                 <div class="rooms-grid" id="rooms-grid"></div>
+
+                <!-- FORMULARZ: POKÓJ -->
+                <div class="modal-overlay hidden" id="modalPokoj">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2>Nowy pokój</h2>
+                            <button class="modal-close" id="btnZamknijModalPokoj">✕</button>
+                        </div>
+                        <form class="form" id="formPokoj">
+                            <div class="form-group">
+                                <label for="pokoj-numer">Numer pokoju</label>
+                                <input type="number" id="pokoj-numer" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pokoj-typ">Typ</label>
+                                <select id="pokoj-typ" required>
+                                    <option value="Jednoosobowy">Jednoosobowy</option>
+                                    <option value="Dwuosobowy">Dwuosobowy</option>
+                                    <option value="Apartament">Apartament</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pokoj-cena">Cena za dobę (zł)</label>
+                                <input type="number" id="pokoj-cena" min="0" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pokoj-status">Status</label>
+                                <select id="pokoj-status" required>
+                                    <option value="Wolny">Wolny</option>
+                                    <option value="Zajęty">Zajęty</option>
+                                    <option value="W sprzątaniu">W sprzątaniu</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary">Zapisz</button>
+                                <button type="button" class="btn" id="btnAnulujFormPokoj">Anuluj</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </section>
 
             <!-- WIDOK: REZERWACJE -->
@@ -175,10 +208,11 @@
             <section class="view" id="view-goscie">
                 <div class="page-header">
                     <h1 class="page-title">Goście</h1>
+                    <button class="btn btn--primary" id="btnNowyGosc">+ Nowy gość</button>
                 </div>
 
                 <div class="filter-bar">
-                    <input type="text" class="filter-input" placeholder="Szukaj gościa...">
+                    <input type="text" class="filter-input" id="szukajGosc" placeholder="Szukaj gościa...">
                 </div>
 
                 <table class="table">
@@ -187,10 +221,40 @@
                             <th>Imię i nazwisko</th>
                             <th>Telefon</th>
                             <th>E-mail</th>
+                            <th>Status</th>
+                            <th>Akcje</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-goscie"></tbody>
                 </table>
+
+                <!-- FORMULARZ: GOŚĆ -->
+                <div class="modal-overlay hidden" id="modalGosc">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2>Nowy gość</h2>
+                            <button class="modal-close" id="btnZamknijModalGosc">✕</button>
+                        </div>
+                        <form class="form" id="formGosc">
+                            <div class="form-group">
+                                <label for="gosc-imie">Imię i nazwisko</label>
+                                <input type="text" id="gosc-imie" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gosc-telefon">Telefon</label>
+                                <input type="text" id="gosc-telefon" placeholder="+48 ...">
+                            </div>
+                            <div class="form-group">
+                                <label for="gosc-email">E-mail</label>
+                                <input type="email" id="gosc-email">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary">Zapisz</button>
+                                <button type="button" class="btn" id="btnAnulujFormGosc">Anuluj</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </section>
 
         </main>

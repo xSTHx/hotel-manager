@@ -1,5 +1,3 @@
-// ===== MOCK DANE =====
-
 const mockData = {
     rooms: [
         { number: 101, type: 'Jednoosobowy', price: 150, status: 'Wolny' },
@@ -33,17 +31,51 @@ const mockData = {
     ]
 };
 
+const STORAGE_KEY = 'hotelManagerData';
 
-// ===== MOCK API =====
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.rooms || !parsed.reservations || !parsed.guests) return null;
+        return parsed;
+    } catch (e) {
+        return null;
+    }
+}
+
+function cloneMockData() {
+    return JSON.parse(JSON.stringify(mockData));
+}
+
+const data = loadFromStorage() || cloneMockData();
 
 const api = {
     getRooms: function() {
-        return Promise.resolve(mockData.rooms);
+        return Promise.resolve(data.rooms);
     },
     getReservations: function() {
-        return Promise.resolve(mockData.reservations);
+        return Promise.resolve(data.reservations);
     },
     getGuests: function() {
-        return Promise.resolve(mockData.guests);
+        return Promise.resolve(data.guests);
+    },
+    save: function() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+            console.warn('Nie udało się zapisać danych.', e);
+        }
+    },
+    reset: function() {
+        localStorage.removeItem(STORAGE_KEY);
+        const fresh = cloneMockData();
+        data.rooms.splice(0, data.rooms.length);
+        Array.prototype.push.apply(data.rooms, fresh.rooms);
+        data.reservations.splice(0, data.reservations.length);
+        Array.prototype.push.apply(data.reservations, fresh.reservations);
+        data.guests.splice(0, data.guests.length);
+        Array.prototype.push.apply(data.guests, fresh.guests);
     }
 };

@@ -290,6 +290,16 @@ ul {
     margin-bottom: 4px;
 }
 
+.room-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.room-actions .btn {
+    flex: 1;
+}
+
 /* ===== BADGE ===== */
 .badge {
     display: inline-block;
@@ -378,6 +388,35 @@ ul {
 .btn--small {
     padding: 4px 10px;
     font-size: 13px;
+}
+
+.btn:disabled,
+.btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover,
+.btn[disabled]:hover {
+    background: white;
+}
+
+.btn--primary:disabled:hover,
+.btn--primary[disabled]:hover {
+    background: #3f51b5;
+}
+
+.btn--danger:disabled:hover,
+.btn--danger[disabled]:hover {
+    background: white;
+}
+
+.empty-state {
+    text-align: center;
+    color: #888;
+    padding: 24px;
+    font-size: 14px;
+    font-style: italic;
 }
 
 /* ===== MODAL ===== */
