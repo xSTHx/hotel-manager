@@ -16,6 +16,7 @@ const inputCheckOut = document.getElementById('wyjazd');
 
 const filterRoomType = document.getElementById('filterRoomType');
 const filterRoomStatus = document.getElementById('filterRoomStatus');
+const filterCurrency = document.getElementById('filterCurrency');
 const guestSearchInput = document.getElementById('szukajGosc');
 const tbodyReservations = document.getElementById('tbody-rezerwacje');
 
@@ -52,6 +53,10 @@ let editingGuestId = null;
 let roomTypeFilter = '';
 let roomStatusFilter = '';
 let guestSearchQuery = '';
+let currencyRates = null;
+let displayCurrency = '';
+
+const CURRENCY_SYMBOLS = { EUR: '€', USD: '$', CHF: 'CHF' };
 
 function escapeHtml(str) {
     return String(str)
@@ -440,6 +445,11 @@ guestSearchInput.addEventListener('input', function() {
     renderGuests(guests);
 });
 
+filterCurrency.addEventListener('change', function() {
+    displayCurrency = this.value;
+    renderRooms(rooms);
+});
+
 tbodyReservations.addEventListener('click', function(e) {
     const button = e.target.closest('button[data-action]');
     if (!button || button.disabled) return;
@@ -477,10 +487,12 @@ function renderRooms(roomsData) {
         const badgeClass = badgeMap[room.status] || 'badge--gray';
         const div = document.createElement('div');
         div.className = 'room-card';
+        const convertedPrice = convertPrice(room.price);
         div.innerHTML =
             '<div class="room-number">' + room.number + '</div>' +
             '<div class="room-type">' + escapeHtml(room.type) + '</div>' +
             '<div class="room-price">' + room.price + ' zł / noc</div>' +
+            (convertedPrice ? '<div class="room-price-alt">' + convertedPrice + '</div>' : '') +
             '<span class="badge ' + badgeClass + '">' + escapeHtml(room.status) + '</span>' +
             '<div class="room-actions">' +
                 '<button class="btn btn--small" data-action="edit-room" data-number="' + room.number + '">Edytuj</button>' +
@@ -629,6 +641,50 @@ function fillRoomSelect(roomsData, includeRoomNumber) {
     });
 }
 
+function convertPrice(pricePln) {
+    if (!displayCurrency || !currencyRates) return '';
+    const rate = currencyRates.rates[displayCurrency];
+    if (!rate) return '';
+    const converted = (pricePln / rate).toFixed(2);
+    const symbol = CURRENCY_SYMBOLS[displayCurrency] || displayCurrency;
+    return '≈ ' + converted + ' ' + symbol + ' / noc';
+}
+
+function renderCurrencyRates() {
+    const list = document.getElementById('currency-rates');
+    const dateEl = document.getElementById('currency-date');
+
+    if (!currencyRates) {
+        list.innerHTML = '<li>Nie udało się pobrać kursów.</li>';
+        dateEl.textContent = '';
+        return;
+    }
+
+    const codes = ['EUR', 'USD', 'CHF'];
+    list.innerHTML = '';
+    codes.forEach(function(code) {
+        const rate = currencyRates.rates[code];
+        if (!rate) return;
+        const li = document.createElement('li');
+        const symbol = CURRENCY_SYMBOLS[code] || code;
+        li.textContent = '1 ' + code + ' (' + symbol + ') = ' + rate.toFixed(4) + ' zł';
+        list.appendChild(li);
+    });
+    dateEl.textContent = 'Stan na ' + currencyRates.date;
+}
+
+function loadCurrencyRates() {
+    api.getCurrencyRates().then(function(result) {
+        currencyRates = result;
+        renderCurrencyRates();
+        renderRooms(rooms);
+    }).catch(function(err) {
+        console.warn('Nie udało się pobrać kursów walut.', err);
+        currencyRates = null;
+        renderCurrencyRates();
+    });
+}
+
 function refreshAll() {
     renderRooms(rooms);
     renderReservations(reservations);
@@ -642,3 +698,5 @@ Promise.all([api.getRooms(), api.getReservations(), api.getGuests()]).then(funct
     guests = results[2];
     refreshAll();
 });
+
+loadCurrencyRates();

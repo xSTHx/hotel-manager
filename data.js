@@ -61,6 +61,26 @@ const api = {
     getGuests: function() {
         return Promise.resolve(data.guests);
     },
+    getCurrencyRates: function() {
+        return fetch('https://api.nbp.pl/api/exchangerates/tables/A/?format=json')
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Błąd pobierania kursów (HTTP ' + response.status + ').');
+                }
+                return response.json();
+            })
+            .then(function(payload) {
+                const table = payload[0];
+                const wanted = ['EUR', 'USD', 'CHF'];
+                const rates = {};
+                table.rates.forEach(function(r) {
+                    if (wanted.indexOf(r.code) !== -1) {
+                        rates[r.code] = r.mid;
+                    }
+                });
+                return { date: table.effectiveDate, rates: rates };
+            });
+    },
     save: function() {
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));

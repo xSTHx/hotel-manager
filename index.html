@@ -72,6 +72,14 @@
                     </div>
 
                     <div class="card">
+                        <h2 class="card-title">Kursy walut (NBP)</h2>
+                        <ul class="simple-list currency-rates" id="currency-rates">
+                            <li>Ładowanie kursów...</li>
+                        </ul>
+                        <p class="currency-date" id="currency-date"></p>
+                    </div>
+
+                    <div class="card">
                         <h2 class="card-title">Dzisiejsze przyjazdy</h2>
                         <ul class="simple-list" id="lista-przyjazdy"></ul>
                     </div>
@@ -102,6 +110,12 @@
                         <option>Wolny</option>
                         <option>Zajęty</option>
                         <option>W sprzątaniu</option>
+                    </select>
+                    <select class="filter-select" id="filterCurrency">
+                        <option value="">Ceny w PLN</option>
+                        <option value="EUR">Pokaż w EUR</option>
+                        <option value="USD">Pokaż w USD</option>
+                        <option value="CHF">Pokaż w CHF</option>
                     </select>
                 </div>
 
